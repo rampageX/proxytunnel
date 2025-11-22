@@ -6,7 +6,7 @@ proxytunnel - program to tunnel a connection through a standard HTTPS proxy
 
 
 == SYNOPSIS
-*proxytunnel* [_OPTION…_] [_host_++:++_port_]
+*proxytunnel* [_OPTION…_]
 
 
 == DESCRIPTION
@@ -32,15 +32,16 @@ also be used for other proxy-traversing purposes like proxy bouncing.
     	[2001:db8::123:4567:89ab:cdef%eth0]:22
 
 *-p*, *--proxy*=_host_++:++_port_::
-    Use _host_ and _port_ as the local proxy to connect to, if not specified
-    the *HTTP_PROXY* environment variable, if set, will be used instead.
+    Use _host_ and _port_ as the local (primary) proxy to connect to, if not
+    specified the *HTTP_PROXY* environment variable, if set, will be used
+    instead. This option or the environment variable are mandatory.
 
 *-r*, *--remproxy*=_host_++:++_port_::
     Use _host_ and _port_ as the remote (secondary) proxy to connect to.
 
 *-d*, *--dest*=_host_++:++_port_::
-    Use _host_ and _port_ as the destination for the tunnel, you can also
-    specify them as the argument to the proxytunnel command.
+    Use _host_ and _port_ as the destination for the tunnel. This is a
+    mandatory option.
 
 *-e*, *--encrypt*::
     SSL encrypt data between local proxy and destination.
