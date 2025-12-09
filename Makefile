@@ -14,18 +14,18 @@ OPTFLAGS += -DHAVE_GETOPT_LONG
 # Comment if you don't have/want ssl
 OPTFLAGS += -DUSE_SSL
 
-# Most systems
-OPTFLAGS += -DSETPROCTITLE -DSPT_TYPE=2
-
-# System dependant blocks... if your system is listed below, uncomment
-# the relevant lines
-
 # MSYS
 # The current version of gcc from MSYS defines __MSYS__ and __CYGWIN__.
 # To avoid to change the code, simply define CYGWIN additionally. 
 ifneq ($(filter $(MSYSTEM),MSYS MINGW32 MINGW64 UCRT64),)
 CFLAGS += -DCYGWIN
+else
+# Most systems, MSYS definitely not
+OPTFLAGS += -DSETPROCTITLE -DSPT_TYPE=2
 endif
+
+# System dependant blocks... if your system is listed below, uncomment
+# the relevant lines
 
 # OpenBSD
 #OPTFLAGS += -DHAVE_SYS_PSTAT_H
