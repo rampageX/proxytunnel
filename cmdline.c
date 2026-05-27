@@ -61,11 +61,6 @@ void cmdline_parser_print_help (void) {
 " -X, --encrypt-remproxy     SSL encrypt data between local and remote proxy\n"
 "\n"
 "Additional options for specific features:\n"
-" -W, --wa-bug-29744         Workaround ASF Bugzilla 29744: if SSL is active\n"
-"                            stop using it after CONNECT (might not work on all\n"
-"                            setups)\n"
-" -B, --buggy-encrypt-proxy  Equivalent to -E -W, provided for backwards\n"
-"                            compatibility\n"
 " -z, --no-check-certificate Don't verify server SSL certificate\n"
 " -C, --cacert=STRING        Path to trusted CA certificate or directory\n"
 " -4, --ipv4                 Enforce IPv4 connection to local proxy\n"
@@ -282,12 +277,14 @@ int cmdline_parser( int argc, char * const *argv, struct gengetopt_args_info *ar
 				break;
 
 			case 'W':	/* if SSL is active stop it after CONNECT */
+				message("Option '--wa-bug-29744' ('-W') is deprecated, expect removal soon\n");
 				args_info->wa_bug_29744_flag = !(args_info->wa_bug_29744_flag);
 				if( args_info->verbose_flag )
 					message("If SSL is active stop it after CONNECT\n");
 				break;
 
 			case 'B':	/* do -E -W */
+				message("Option '--buggy-encrypt-proxy' ('-B') is deprecated, expect removal soon\n");
 				args_info->wa_bug_29744_flag = !(args_info->wa_bug_29744_flag);
 				args_info->encryptproxy_flag = !(args_info->encryptproxy_flag);
 				if( args_info->verbose_flag )
