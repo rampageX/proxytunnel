@@ -99,7 +99,7 @@ install:
 	install -p -m555 $(name) $(DESTDIR)$(bindir)
 	$(MAKE) -C docs install
 
-.c.o:
+%.o: %.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(OPTFLAGS) -c -o $@ $<
 
 dist: clean docs
