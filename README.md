@@ -41,11 +41,6 @@ Standard options:
  -X, --encrypt-remproxy     SSL encrypt data between local and remote proxy
 
 Additional options for specific features:
- -W, --wa-bug-29744         Workaround ASF Bugzilla 29744: if SSL is active
-                            stop using it after CONNECT (might not work on all
-                            setups)
- -B, --buggy-encrypt-proxy  Equivalent to -E -W, provided for backwards
-                            compatibility
  -z, --no-check-certificate Don't verify server SSL certificate
  -C, --cacert=STRING        Path to trusted CA certificate or directory
  -4, --ipv4                 Enforce IPv4 connection to local proxy
