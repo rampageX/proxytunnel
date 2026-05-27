@@ -66,8 +66,6 @@ void cmdline_parser_print_help (void) {
 "                            setups)\n"
 " -B, --buggy-encrypt-proxy  Equivalent to -E -W, provided for backwards\n"
 "                            compatibility\n"
-/*" -L, --tlsenforce           Enforce TLSv1 connection (legacy)\n"
-" -T, --no-ssl3              Do not connect using SSLv3 (legacy)\n"*/
 " -z, --no-check-certificate Don't verify server SSL certificate\n"
 " -C, --cacert=STRING        Path to trusted CA certificate or directory\n"
 " -4, --ipv4                 Enforce IPv4 connection to local proxy\n"
@@ -148,7 +146,6 @@ int cmdline_parser( int argc, char * const *argv, struct gengetopt_args_info *ar
 	args_info->clientkey_given = 0;
 	args_info->wa_bug_29744_given = 0;
 	args_info->proctitle_given = 0;
-	/* args_info->enforcetls1_given = 0; */
 	args_info->host_given = 0;
 	args_info->cacert_given = 0;
 	args_info->no_sni_flag = 0;
@@ -182,9 +179,7 @@ int cmdline_parser( int argc, char * const *argv, struct gengetopt_args_info *ar
 	args_info->clientcert_arg = NULL; \
 	args_info->clientkey_arg = NULL; \
 	args_info->wa_bug_29744_flag = 0; \
-	/* args_info->no_ssl3_flag = 0; */\
 	args_info->proctitle_arg = NULL; \
-	/* args_info->enforcetls1_flag = 0; */\
 	args_info->host_arg = NULL; \
 	args_info->no_check_cert_flag = 0; \
 	args_info->cacert_arg = NULL; \
@@ -220,7 +215,6 @@ int cmdline_parser( int argc, char * const *argv, struct gengetopt_args_info *ar
 			{ "remproxyauth",	1, NULL, 'R' },
 			{ "proctitle",		1, NULL, 'x' },
 			{ "host",           1, NULL, 'o' },
-			{ "tlsenforce",     0, NULL, 'L' },
 			{ "header",			1, NULL, 'H' },
 			{ "verbose",		0, NULL, 'v' },
 			{ "ntlm",			0, NULL, 'N' },
@@ -234,7 +228,6 @@ int cmdline_parser( int argc, char * const *argv, struct gengetopt_args_info *ar
 			{ "key",			1, NULL, 'k' },
 			{ "wa-bug-29744",	0, NULL, 'W' },
 			{ "buggy-encrypt-proxy",	0, NULL, 'B' },
-			{ "no-ssl3",		0, NULL, 'T' },
 			{ "no-check-certificate",0,NULL,'z' },
 			{ "cacert",         1, NULL, 'C' },
 			{ "ipv4",           0, NULL, '4' },
@@ -243,9 +236,9 @@ int cmdline_parser( int argc, char * const *argv, struct gengetopt_args_info *ar
 			{ NULL,				0, NULL, 0 }
 		};
 
-		c = getopt_long (argc, argv, "hVia:u:s:t:F:p:P:r:R:d:H:x:c:k:vNeEXWBqLo:TzC:46I", long_options, &option_index);
+		c = getopt_long (argc, argv, "hVia:u:s:t:F:p:P:r:R:d:H:x:c:k:vNeEXWBqo:zC:46I", long_options, &option_index);
 #else
-		c = getopt( argc, argv, "hVia:u:s:t:F:p:P:r:R:d:H:x:c:k:vNeEXWBqLo:TzC:46I" );
+		c = getopt( argc, argv, "hVia:u:s:t:F:p:P:r:R:d:H:x:c:k:vNeEXWBqo:zC:46I" );
 #endif
 
 		if (c == -1)
@@ -333,13 +326,6 @@ int cmdline_parser( int argc, char * const *argv, struct gengetopt_args_info *ar
 				args_info->proctitle_given = 1;
 				message( "Proctitle override enabled\n" );
 				args_info->proctitle_arg = gengetopt_strdup (optarg);
-				break;
-
-			case 'L':
-				/* args_info->enforcetls1_given = 1;
-				message("Enforcing TLSv1\n");
-				args_info->enforcetls1_flag = 1; */
-				message ("Option -L/--tlsenforce is deprecated and without effect\n");
 				break;
 
 			case 'o':
@@ -431,13 +417,6 @@ int cmdline_parser( int argc, char * const *argv, struct gengetopt_args_info *ar
 				args_info->encryptremproxy_flag = !(args_info->encryptremproxy_flag);
 				if( args_info->verbose_flag )
 					message("SSL local to remote proxy enabled\n");
-				break;
-
-			case 'T':   /* Turn off SSLv3 */
-				/* args_info->no_ssl3_flag = !(args_info->no_ssl3_flag);
-				if( args_info->verbose_flag )
-					message("SSLv3 disabled\n"); */
-				message ("Option -T/--no-ssl3 is deprecated and without effect\n");
 				break;
 
 			case 'd':	/* Destination host to built the tunnel to.  */
