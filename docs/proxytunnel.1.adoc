@@ -54,14 +54,6 @@ also be used for other proxy-traversing purposes like proxy bouncing.
 
 == ADDITIONAL OPTIONS
 
-*-W*, *--wa-bug-29744*::
-    Workaround ASF Bugzilla 29744: If SSL is in use (by *-e*, *-E*, *-X*
-    options), stop using it immediately after the CONNECT exchange to
-    workaround apache server bugs (This might not work on all setups).
-
-*-B*, *--buggy-encrypt-proxy*::
-    Equivalent to *-E -W* (Provided for backwards compatibility).
-
 *-z*, *--no-check-certificate*::
     Do not verify server SSL certificate when establishing an SSL connection.
     By default, the server SSL certificate is verified and the target host name
