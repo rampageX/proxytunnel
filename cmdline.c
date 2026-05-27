@@ -77,10 +77,6 @@ void cmdline_parser_print_help (void) {
 " -R, --remproxyauth=STRING  Remote proxy auth credentials user:pass combination\n"
 " -c, --cert=FILENAME        client SSL certificate (chain)\n"
 " -k, --key=FILENAME         client SSL key\n"
-// " -u, --user=STRING       Username for proxy authentication\n"
-// " -s, --pass=STRING       Password for proxy authentication\n"
-// " -U, --uservar=STRING    Environment variable that holds username\n"
-// " -S, --passvar=STRING    Environment variable that holds password\n"
 " -N, --ntlm                 Use NTLM based authentication\n"
 " -t, --domain=STRING        NTLM domain (default: autodetect)\n"
 " -H, --header=STRING        Add additional HTTP headers to send to proxy\n"
@@ -365,12 +361,12 @@ int cmdline_parser( int argc, char * const *argv, struct gengetopt_args_info *ar
 			case 'F':  /* File containing Username & Password to send to
 							HTTPS proxy for authentication.  */
 				if (args_info->user_given) {
-					fprintf (stderr, "%s: `--user' (`-u') or `--passfile' (`-F') option given more than once\n", PACKAGE);
+					fprintf (stderr, "%s: `--passfile' (`-F') option given more than once\n", PACKAGE);
 					clear_args ();
 					exit(1);
 				}
 				if (args_info->pass_given) {
-					fprintf (stderr, "%s: `--pass' (`-s') or `--passfile' (`-F') option given more than once\n", PACKAGE);
+					fprintf (stderr, "%s: `--passfile' (`-F') option given more than once\n", PACKAGE);
 					clear_args ();
 					exit(1);
 				}
