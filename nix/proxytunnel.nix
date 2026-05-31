@@ -15,7 +15,7 @@
 in
   pkgs.stdenv.mkDerivation {
     pname = "proxytunnel";
-    version = "1.12.3";
+    version = "1.13.0";
     src = ./..;
 
     buildInputs = [pkgs.openssl];
